@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StarTechNow — Your Idea. Our Execution. Advanced IT solutions across 7 countries.">
+  <title>StarTechNow — Your Idea. Our Execution.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #0d3d52;
+      --primary-dark:  #08293a;
+      --primary-mid:   #0f4f6b;
+      --accent:        #1a8a9a;
+      --accent-light:  #29c4b0;
+      --accent-muted:  #9dcfcc;
+      --accent-bg:     #e1f5f2;
+      --accent-text:   #0f6e56;
+      --white:         #ffffff;
+      --gray-50:       #f8fafc;
+      --gray-100:      #f0f8f8;
+      --gray-200:      #e2e8f0;
+      --text:          #0f1f2e;
+      --text-muted:    #5a7180;
+      --radius:        14px;
+      --radius-sm:     8px;
+      --font:          'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--text); background: var(--gray-50); line-height: 1.7; font-size: 16px; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+    ul { list-style: none; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-alt { background: var(--gray-100); }
+    .section-dark { background: var(--primary); }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .section-title span { color: var(--accent); }
+    .section-title.on-dark { color: var(--white); }
+    .section-sub { font-size: 1rem; color: var(--text-muted); margin-bottom: 52px; max-width: 520px; }
+    .section-sub.center { text-align: center; margin-left: auto; margin-right: auto; }
+    .text-center { text-align: center; }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: var(--primary);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: box-shadow 0.3s;
+    }
+    #nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 68px;
+      max-width: 1120px; margin: 0 auto;
+    }
+
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 38px; height: 38px; flex-shrink: 0; }
+    .logo-text { color: var(--white); font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px; line-height: 1; }
+    .logo-text em { color: var(--accent-light); font-style: normal; font-size: 0.9em; }
+    .logo-tag { display: block; font-size: 0.6rem; color: var(--accent-muted); letter-spacing: 2px; font-weight: 500; margin-top: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--accent-muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--accent); color: var(--white) !important;
+      padding: 9px 22px; border-radius: var(--radius-sm);
+      font-weight: 600 !important; font-size: 0.85rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent-light) !important; color: var(--primary) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; display: block; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      background: var(--primary);
+      padding: 144px 24px 100px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-pixel-grid {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 280px;
+      background-image: radial-gradient(circle, rgba(41,196,176,0.28) 1.8px, transparent 1.8px);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+    .hero-pixel-grid-left {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 140px;
+      background-image: radial-gradient(circle, rgba(41,196,176,0.1) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 660px; }
+
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(41,196,176,0.12);
+      border: 1px solid rgba(41,196,176,0.28);
+      color: var(--accent-light);
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); }
+
+    #hero h1 {
+      font-size: 3.6rem; font-weight: 800; color: var(--white);
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    #hero h1 .highlight { color: var(--accent-light); }
+    #hero h1 .line2 { color: var(--accent-muted); font-weight: 600; font-size: 2.4rem; }
+
+    #hero p {
+      font-size: 1.1rem; color: rgba(157,207,204,0.85);
+      max-width: 500px; margin-bottom: 40px; line-height: 1.8;
+    }
+
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: var(--white);
+      padding: 14px 32px; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--accent-light); color: var(--primary); transform: translateY(-2px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.07); color: var(--accent-muted);
+      padding: 14px 32px; border-radius: var(--radius-sm);
+      font-weight: 600; font-size: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    .hero-stats {
+      display: flex; gap: 40px; margin-top: 56px;
+      padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent-light); line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: var(--accent-muted); margin-top: 4px; }
+
+    /* ── VALUE STRIP ── */
+    .value-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--gray-200); }
+    .value-item {
+      background: var(--white); padding: 28px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: background 0.2s;
+    }
+    .value-item:hover { background: var(--accent-bg); }
+    .value-item-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .value-item h3 { font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .value-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── SERVICES ── */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .service-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius); padding: 28px 20px;
+      text-align: center; transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      transform: scaleX(0); transition: transform 0.25s; transform-origin: left;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(26,138,154,0.13); border-color: var(--accent-bg); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .svc-icon {
+      width: 58px; height: 58px; border-radius: 50%;
+      background: var(--accent-bg); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 1.6rem;
+    }
+    .service-card h3 { font-size: 0.92rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .service-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── VISION ── */
+    #vision { padding: 80px 24px; position: relative; overflow: hidden; }
+    .vision-dots {
+      position: absolute; right: 0; top: 0; bottom: 0; width: 220px;
+      background-image: radial-gradient(circle, rgba(41,196,176,0.18) 1.5px, transparent 1.5px);
+      background-size: 14px 14px; pointer-events: none;
+    }
+    .vision-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 1; }
+    .vision-text h2 { font-size: 2.2rem; font-weight: 800; color: var(--white); margin-bottom: 24px; line-height: 1.2; }
+    .vision-text h2 span { color: var(--accent-light); }
+    .vision-quotes { display: flex; flex-direction: column; gap: 16px; }
+    .vision-quote {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-left: 3px solid var(--accent-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 18px 24px; color: var(--accent-muted); font-size: 0.97rem; font-style: italic; line-height: 1.7;
+    }
+    .vision-values { display: flex; flex-direction: column; gap: 16px; }
+    .vision-val {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm); padding: 18px 20px;
+    }
+    .val-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .val-title { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .val-desc { font-size: 0.82rem; color: var(--accent-muted); }
+
+    /* ── GEOGRAPHIES ── */
+    .geo-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .geo-pill {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: 40px; padding: 12px 22px;
+      font-size: 0.9rem; font-weight: 500; color: var(--primary);
+      transition: all 0.2s; cursor: default;
+    }
+    .geo-pill:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .geo-pill:hover .geo-label { color: var(--white); }
+    .geo-flag { font-size: 1.3rem; }
+    .geo-label { color: var(--text); transition: color 0.2s; }
+
+    /* ── CLIENTS ── */
+    .clients-wrap { columns: 3; gap: 12px; }
+    .client-item {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm); padding: 14px 20px;
+      font-size: 0.88rem; font-weight: 600; color: var(--primary);
+      margin-bottom: 12px; break-inside: avoid;
+      display: flex; align-items: center; gap: 10px;
+      transition: all 0.2s;
+    }
+    .client-item:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+    .client-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-light); flex-shrink: 0; }
+
+    /* ── CONTACT ── */
+    #contact { padding: 80px 24px; }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .contact-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); padding: 32px 24px; text-align: center;
+      transition: background 0.2s;
+    }
+    .contact-card:hover { background: rgba(255,255,255,0.1); }
+    .contact-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .contact-card h3 { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 10px; }
+    .contact-card p { font-size: 1rem; color: var(--white); font-weight: 500; }
+    .contact-card span { display: block; font-size: 0.8rem; color: var(--accent-muted); margin-top: 5px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--primary-dark); padding: 28px 24px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-inner p { color: #4a7a88; font-size: 0.83rem; }
+    .footer-inner span { color: var(--accent-light); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: #4a7a88; font-size: 0.83rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent-light); }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu {
+      display: none; flex-direction: column;
+      background: var(--primary-dark); padding: 16px 24px 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--accent-muted); font-size: 0.95rem; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 500; }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--accent-light); margin-top: 8px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .vision-inner { grid-template-columns: 1fr; }
+      .clients-wrap { columns: 2; }
+    }
+    @media (max-width: 640px) {
+      #hero { padding: 120px 24px 72px; }
+      #hero h1 { font-size: 2.4rem; }
+      #hero h1 .line2 { font-size: 1.7rem; }
+      .hero-stats { gap: 24px; }
+      .section-title { font-size: 1.7rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .clients-wrap { columns: 1; }
+      .hero-pixel-grid { width: 100px; }
+      footer .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="19,2 23,14 36,14 26,21 30,35 19,27 8,35 12,21 2,14 15,14"
+          fill="none" stroke="#29c4b0" stroke-width="2" stroke-linejoin="round"/>
+        <line x1="19" y1="2" x2="19" y2="27" stroke="#29c4b0" stroke-width="1.2" opacity="0.35"/>
+      </svg>
+      <div>
+        <div class="logo-text">STARTECH <em>NOW</em></div>
+        <span class="logo-tag">YOUR IDEA. OUR EXECUTION</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#vision">About</a>
+      <a href="#geographies">Reach</a>
+      <a href="#clients">Clients</a>
+      <a href="#contact" class="nav-cta">Contact Us</a>
+    </div>
+    <button class="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#services" onclick="toggleMenu()">Services</a>
+    <a href="#vision" onclick="toggleMenu()">About</a>
+    <a href="#geographies" onclick="toggleMenu()">Our Reach</a>
+    <a href="#clients" onclick="toggleMenu()">Clients</a>
+    <a href="#contact" onclick="toggleMenu()">Contact Us →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-pixel-grid-left"></div>
+  <div class="hero-pixel-grid"></div>
+  <div class="container hero-content">
+    <div class="hero-pill">Advanced IT Solutions</div>
+    <h1>
+      Your Idea.<br>
+      <span class="highlight">Our Execution.</span><br>
+      <span class="line2">Think Big. Think Digital.</span>
+    </h1>
+    <p>Providing advanced information technology services to resolve business problems — your preferred technology partner trusted across 7 countries.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Services Offered</div>
+      </div>
+      <div>
+        <div class="stat-num">7</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div>
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STRIP -->
+<div class="value-strip">
+  <div class="value-item fade-up">
+    <div class="value-item-icon">🌍</div>
+    <div><h3>Global Reach</h3><p>Active across USA, UK, Australia, UAE, Qatar, Oman & Pakistan</p></div>
+  </div>
+  <div class="value-item fade-up">
+    <div class="value-item-icon">⚡</div>
+    <div><h3>Fast Delivery</h3><p>Agile execution that turns your ideas into live products quickly</p></div>
+  </div>
+  <div class="value-item fade-up">
+    <div class="value-item-icon">🔒</div>
+    <div><h3>Secure by Default</h3><p>Cybersecurity best practices built into every product we deliver</p></div>
+  </div>
+  <div class="value-item fade-up">
+    <div class="value-item-icon">🤝</div>
+    <div><h3>End-to-End Partner</h3><p>From concept to deployment — we handle it all for your business</p></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="section section-alt">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Our <span>Services</span></h2>
+      <p class="section-sub center">10 powerful technology solutions built to transform and grow your business</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🖥️</div>
+        <h3>POS Inventory</h3>
+        <p>Powerful inventory catalogue, efficient product system & full business customization</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🏫</div>
+        <h3>School Management</h3>
+        <p>Cloud-based system with student performance tracking, recruitment & MIS reporting</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🛒</div>
+        <h3>E-Commerce Solutions</h3>
+        <p>Platform scaling, multi-language, multi-payment & SEO integrated content management</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">📊</div>
+        <h3>ERP Solutions</h3>
+        <p>Data integration, automation, accounting, MIS reporting & business analysis</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">👥</div>
+        <h3>CRM Services</h3>
+        <p>Workflow automation, third-party integrations, data analytics & social media management</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🍎</div>
+        <h3>iOS Applications</h3>
+        <p>Swift, user-friendly interface with Siri support, dark mode & multi-language</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🤖</div>
+        <h3>Android Applications</h3>
+        <p>Social media compatibility, resizable widgets, interactive UI & flexible storage</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">💻</div>
+        <h3>Java & Python</h3>
+        <p>Object-oriented, multi-threaded, open source & GUI programming functionalities</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🌐</div>
+        <h3>Website Applications</h3>
+        <p>User-friendly, dynamic media management, multi-language & custom CMS solutions</p>
+      </div>
+
+      <div class="service-card fade-up">
+        <div class="svc-icon">🔐</div>
+        <h3>Cybersecurity</h3>
+        <p>Digital forensics, penetration testing, red team ops & vulnerability assessment</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="section-dark">
+  <div class="vision-dots"></div>
+  <div class="container">
+    <div class="vision-inner">
+      <div class="vision-text">
+        <span class="section-label">Who We Are</span>
+        <h2>Driven by <span>vision</span>,<br>powered by technology.</h2>
+        <div class="vision-quotes">
+          <div class="vision-quote">"Providing advanced information technology services to resolve business problems."</div>
+          <div class="vision-quote">"Aspiring to become the preferred choice of technology platform for businesses."</div>
+        </div>
+      </div>
+      <div class="vision-values">
+        <div class="vision-val fade-up">
+          <div class="val-icon">🚀</div>
+          <div>
+            <div class="val-title">Online Business Opportunity</div>
+            <div class="val-desc">Expanding your reach to customers across the digital world</div>
+          </div>
+        </div>
+        <div class="vision-val fade-up">
+          <div class="val-icon">⚙️</div>
+          <div>
+            <div class="val-title">Powerful System Operations</div>
+            <div class="val-desc">Robust infrastructure that drives performance for your business</div>
+          </div>
+        </div>
+        <div class="vision-val fade-up">
+          <div class="val-icon">🤖</div>
+          <div>
+            <div class="val-title">Automation of Structured Tasks</div>
+            <div class="val-desc">Eliminating manual work and freeing your team to grow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GEOGRAPHIES -->
+<section id="geographies" class="section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Our Reach</span>
+      <h2 class="section-title">Current <span>Geographies</span></h2>
+      <p class="section-sub center">Trusted by clients across 7 countries worldwide</p>
+    </div>
+    <div class="geo-grid">
+      <div class="geo-pill fade-up"><span class="geo-flag">🇺🇸</span><span class="geo-label">United States of America</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇬🇧</span><span class="geo-label">United Kingdom</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇦🇺</span><span class="geo-label">Australia</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇦🇪</span><span class="geo-label">United Arab Emirates</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇶🇦</span><span class="geo-label">Qatar</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇴🇲</span><span class="geo-label">Oman</span></div>
+      <div class="geo-pill fade-up"><span class="geo-flag">🇵🇰</span><span class="geo-label">Pakistan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients" class="section section-alt">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Who We've Worked With</span>
+      <h2 class="section-title">Our <span>Clients</span></h2>
+      <p class="section-sub center">Trusted by 20+ leading businesses across multiple industries and countries</p>
+    </div>
+    <div class="clients-wrap">
+      <div class="client-item fade-up"><span class="client-dot"></span>Red Ruby Real Estate</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Khushwal Thar Portal</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>TechWireMe</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Cedar College</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Locality</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>ShapeWedding</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Chill Tech</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>IMG, LLC</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Piranha Studio</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Parallel Lifestyle Gym</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Josselyn Stuart Realty</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Nadia Listings</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Giftinday</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Transworld Home</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Winmark Solutions</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Alkaline Springs</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Designing Territory</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>U Foods</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>AJWA</div>
+      <div class="client-item fade-up"><span class="client-dot"></span>Unique</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-dark">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Reach Out</span>
+      <h2 class="section-title on-dark">Get In <span>Touch</span></h2>
+      <p class="section-sub center" style="color: var(--accent-muted);">Ready to start your project? We'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card fade-up">
+        <div class="contact-icon">✉️</div>
+        <h3>Email</h3>
+        <p>info@startechnow.com</p>
+        <span>Send us a message anytime</span>
+      </div>
+      <div class="contact-card fade-up">
+        <div class="contact-icon">🌐</div>
+        <h3>Website</h3>
+        <p>www.startechnow.com</p>
+        <span>Visit for more information</span>
+      </div>
+      <div class="contact-card fade-up">
+        <div class="contact-icon">📞</div>
+        <h3>Phone</h3>
+        <p>+92 321 1354428</p>
+        <span>Call or WhatsApp us</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>&copy; 2024 <span>StarTechNow</span> — Your Idea. Our Execution. All rights reserved.</p>
+    <nav class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#vision">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  }
+
+  // Sticky nav shadow
+  window.addEventListener('scroll', function () {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Fade-up on scroll
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(function (el) {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
