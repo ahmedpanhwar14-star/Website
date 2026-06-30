@@ -19,7 +19,7 @@ git commit -m "Initial commit: StarTechNow WordPress theme"
 git branch -M main
 
 # Step 5: Add remote origin
-git remote add origin https://github.com/ahmedpanhwar14-star/Website.git
+git remote add origin https://github.com/startechnow.git
 
 # Step 6: Push
 git push -u origin main
